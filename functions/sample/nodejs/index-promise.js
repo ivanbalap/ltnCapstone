@@ -13,7 +13,17 @@ function main(params) {
     });
     cloudant.setServiceUrl(params.COUCH_URL);
 
+    // const cloudant = CloudantV1({
+    //     url: params.COUCH_URL,
+    //     plugins: { iamauth: { iamApiKey: params.IAM_API_KEY } }
+    // });
+
     let dbListPromise = getDbs(cloudant);
+    // console.log("kfakfdskjfdskajf");
+    // console.log(`inside ${dbListPromise}`);
+    // dbListPromise.then(
+    //     (data) => {console.log(data);}
+    // )
     return dbListPromise;
 }
 
@@ -64,3 +74,13 @@ function getDbs(cloudant) {
              });
          })
  }
+
+ const params={
+    IAM_API_KEY:"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM",
+    COUCH_URL:"https://e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix.cloudantnosqldb.appdomain.cloud"
+}
+// console.log(params.IAM_API_KEY)
+// console.log(params.COUCH_URL)
+main(params).then(
+    (data) => {console.log(data)}
+)

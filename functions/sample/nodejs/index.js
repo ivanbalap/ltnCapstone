@@ -13,6 +13,8 @@
    cloudant.setServiceUrl(params.COUCH_URL);
  
    let dbList = getDbs(cloudant);
+   console.log("kfakfdskjfdskajf");
+   console.log(dbList);
    return { dbs: dbList };
  }
  
@@ -28,3 +30,9 @@
        console.log(err);
      });
  }
+
+ let params={
+     "IAM_API_KEY":"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM",
+     "COUCH_URL":"https://e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix.cloudantnosqldb.appdomain.cloud"
+ }
+ main(params)

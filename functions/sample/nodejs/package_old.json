@@ -12,11 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@ibm-cloud/cloudant": "0.1.1",
-    "@ibm-functions/iam-token-manager": "1.0.11",
-    "ibm-cos-sdk": "1.11.0",
-    "ibm_db": "2.8.1",
-    "ibm-watson": "7.0.0"
+    "@cloudant/cloudant": "^4.4.0"
   },
   "devDependencies": {
     "eslint": "^8.27.0"

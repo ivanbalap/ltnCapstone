@@ -5,6 +5,8 @@ Returns:
 """
 from cloudant.client import Cloudant
 from cloudant.error import CloudantException
+# from ibmcloudant import Cloudant
+# from ibmcloudant import CloudantException
 import requests
 
 
@@ -33,3 +35,10 @@ def main(param_dict):
         return {"error": err}
 
     return {"dbs": client.all_dbs()}
+
+if __name__=='__main__':
+    param_dict={
+        "COUCH_USERNAME":"e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix",
+        "IAM_API_KEY":"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM"
+    }
+    print(main(param_dict))
