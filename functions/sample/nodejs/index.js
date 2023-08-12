@@ -32,7 +32,7 @@
  }
 
  let params={
-     "IAM_API_KEY":"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM",
-     "COUCH_URL":"https://e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix.cloudantnosqldb.appdomain.cloud"
+     "IAM_API_KEY":"fdaf",
+     "COUCH_URL":"fdas"
  }
  main(params)

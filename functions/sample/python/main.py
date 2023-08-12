@@ -38,7 +38,7 @@ def main(param_dict):
 
 if __name__=='__main__':
     param_dict={
-        "COUCH_USERNAME":"e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix",
-        "IAM_API_KEY":"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM"
+        "COUCH_USERNAME":"",
+        "IAM_API_KEY":""
     }
     print(main(param_dict))

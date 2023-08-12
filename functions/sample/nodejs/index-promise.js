@@ -76,11 +76,11 @@ function getDbs(cloudant) {
  }
 
  const params={
-    IAM_API_KEY:"qXP_0jljqbBazUCO2WDwktLMMwyksDOLy1Gm2i1ZLqUM",
-    COUCH_URL:"https://e19297ca-16b6-4c74-9771-d060d1f7629f-bluemix.cloudantnosqldb.appdomain.cloud"
+    IAM_API_KEY:"fda",
+    COUCH_URL:"fdaf"
 }
 // console.log(params.IAM_API_KEY)
 // console.log(params.COUCH_URL)
-main(params).then(
-    (data) => {console.log(data)}
-)
+main(params)
+.then(data => console.log(data))
+.catch(err=>console.log(err.toString()))
