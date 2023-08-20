@@ -4,6 +4,8 @@
 
 const { CloudantV1 } = require('@ibm-cloud/cloudant');
 const { IamAuthenticator } = require('ibm-cloud-sdk-core');
+let params= require('../../.creds.json');
+params.state="Texas";
 
 function main(params) {
 
@@ -13,18 +15,25 @@ function main(params) {
     });
     cloudant.setServiceUrl(params.COUCH_URL);
 
-    // const cloudant = CloudantV1({
-    //     url: params.COUCH_URL,
-    //     plugins: { iamauth: { iamApiKey: params.IAM_API_KEY } }
-    // });
+    // let dbListPromise = getDbs(cloudant);
+    // return dbListPromise;
 
-    let dbListPromise = getDbs(cloudant);
-    // console.log("kfakfdskjfdskajf");
-    // console.log(`inside ${dbListPromise}`);
-    // dbListPromise.then(
-    //     (data) => {console.log(data);}
-    // )
-    return dbListPromise;
+    getDbs(cloudant)
+    .then((databases)=>{
+        console.log({state:params.state});
+        console.log(databases["dbs"][0]);
+        if (params.state){
+            console.log('specific dealer:'); 
+            getMatchingRecords(cloudant, databases["dbs"][0],{state:params.state})
+            .then(data => console.log(data))
+            .catch(err=>console.log(err.toString()));
+        } else {
+            console.log('all dealer')
+            getAllRecords(cloudant, databases["dbs"][0])
+            .then(data => console.log(data))
+            .catch(err=>console.log(err.toString()));
+        }
+    })
 }
 
 function getDbs(cloudant) {
@@ -67,6 +76,7 @@ function getDbs(cloudant) {
          cloudant.postAllDocs({ db: dbname, includeDocs: true, limit: 10 })            
              .then((result)=>{
                resolve({result:result.result.rows});
+            //    resolve({result:result.result.docs});
              })
              .catch(err => {
                 console.log(err);
@@ -75,12 +85,55 @@ function getDbs(cloudant) {
          })
  }
 
- const params={
-    IAM_API_KEY:"fda",
-    COUCH_URL:"fdaf"
-}
+//  const params={
+//     IAM_API_KEY:"fda",
+//     COUCH_URL:"fdaf"
+// }
+
+
 // console.log(params.IAM_API_KEY)
 // console.log(params.COUCH_URL)
+
+function dealership(selector) {
+
+    const authenticator = new IamAuthenticator({ apikey: params.IAM_API_KEY })
+    const cloudant = CloudantV1.newInstance({
+      authenticator: authenticator
+    });
+    cloudant.setServiceUrl(params.COUCH_URL);
+
+    // let dbListPromise = getDbs(cloudant);
+    // dbListPromise
+    getDbs(cloudant)
+    .then((databases)=>{
+        console.log(selector);
+        console.log(databases["dbs"][0]);
+        if (selector.state){
+            console.log('specific dealer:'); 
+            console.log(selector)
+            // return getMatchingRecords(cloudant, databases["dbs"][0],selector);
+            getMatchingRecords(cloudant, databases["dbs"][0],selector)
+            .then(data => console.log(data))
+            .catch(err=>console.log(err.toString()));
+        } else {
+            console.log('all dealer')
+            // return getAllRecords(cloudant, databases["dbs"][0])
+            getAllRecords(cloudant, databases["dbs"][0])
+            .then(data => console.log(data))
+            .catch(err=>console.log(err.toString()));
+        }
+    })
+    // return ret_dealership;
+}
+
 main(params)
-.then(data => console.log(data))
-.catch(err=>console.log(err.toString()))
+// .then(data => console.log(data))
+// .catch(err=>console.log(err.toString()))
+
+// selector = {state:"Texas"}
+// dealership(selector)
+// .then(data => console.log(data))
+// .catch(err=>console.log(err.toString()))
+
+// selector = {}
+// dealership(selector)

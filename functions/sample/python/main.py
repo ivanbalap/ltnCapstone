@@ -7,7 +7,11 @@ from cloudant.client import Cloudant
 from cloudant.error import CloudantException
 # from ibmcloudant import Cloudant
 # from ibmcloudant import CloudantException
+# from ibmcloudant.cloudant_v1 import CloudantV1
+# from ibm_cloud_sdk_core import ApiException
+# from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 import requests
+import json
 
 
 def main(param_dict):
@@ -37,8 +41,10 @@ def main(param_dict):
     return {"dbs": client.all_dbs()}
 
 if __name__=='__main__':
-    param_dict={
-        "COUCH_USERNAME":"",
-        "IAM_API_KEY":""
-    }
+    with open("../../.creds.json") as creds:
+        # param_dict={
+        #     "COUCH_USERNAME":"",
+        #     "IAM_API_KEY":""
+        # }
+        param_dict=json.load(creds)
     print(main(param_dict))

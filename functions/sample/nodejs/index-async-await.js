@@ -19,10 +19,11 @@ async function main(params) {
       }
 }
 
-const params={
-    IAM_API_KEY:"fda",
-    COUCH_URL:"fdaf"
-}
+// const params={
+//     IAM_API_KEY:"fda",
+//     COUCH_URL:"fdaf"
+// }
+const params= require('../../.creds.json');
 // console.log(params.IAM_API_KEY)
 // console.log(params.COUCH_URL)
 // main(params).catch(err=>console.log(err.toString()));
