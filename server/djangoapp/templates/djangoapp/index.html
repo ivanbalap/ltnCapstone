@@ -47,7 +47,44 @@
     </nav>
 
     <!--Add a dealer table here -->
-
+    {% if dealerships %}
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">full_name</th>
+                    <th scope="col">city </th>
+                    <th scope="col">address</th>
+                    <th scope="col">zip</th>
+                    <th scope="col">state</th>
+                    <th scope="col">st</th>
+                     <th scope="col">lat</th>
+                    <th scope="col">long</th>
+                    <th scope="col">short_name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for dealer in dealerships %}
+                  <tr>
+                    <td scope="row">{{ dealer.id }}</td>
+                    <td scope="row" class="text-primary">{{ dealer.full_name }}</td>
+                    <td scope="row">{{ dealer.city  }}</td>
+                    <td scope="row">{{ dealer.address }}</td>
+                    <td scope="row">{{ dealer.zip }}</td>
+                    <td scope="row">{{ dealer.state }}</td>
+                    <td scope="row">{{ dealer.st }}</td>
+                    <td scope="row">{{ dealer.lat }}</td>
+                    <td scope="row">{{ dealer.long }}</td>
+                    <td scope="row">{{ dealer.short_name }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No dealerships are available.</p>
+    {% endif %}
     </body>
 
 </html>

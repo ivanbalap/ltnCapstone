@@ -62,12 +62,14 @@ getDbs(cloudant)
  */
  function getAllRecords(cloudant,dbname) {
      return new Promise((resolve, reject) => {
-         cloudant.postAllDocs({ db: dbname, includeDocs: true, limit: 10 })            
+        cloudant.postAllDocs({ db: dbname, includeDocs: true, limit: 10 })
+        // cloudant.postAllDocs({ db: dbname, includeDocs: true})
              .then((result)=>{
                 if (result.result.rows.length == 0) {
                     resolve({404:'The database is empty'});}
                 else{
                     resolve(result.result.rows.map((r)=>{return r.doc}));
+                    // resolve(result.result.rows);
                 }
              })
              .catch(err => {
