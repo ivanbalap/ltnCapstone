@@ -85,6 +85,47 @@
     {% else %}
         <p>No dealerships are available.</p>
     {% endif %}
+
+    <!--Add a dealer table here -->
+    {% if dealerDetails %}
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">dealership </th>
+                    <th scope="col">purchase</th>
+                    <th scope="col">review</th>
+                    <th scope="col">purchase_date</th>
+                    <th scope="col">car_make</th>
+                    <th scope="col">car_model</th>
+                    <th scope="col">car_year</th>
+                    <th scope="col">sentiment</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for dealerDetail in dealerDetails %}
+                  <tr>
+                    <td scope="row">{{ dealerDetail.id }}</td>
+                    <td scope="row">{{ dealerDetail.name }}</td>
+                    <td scope="row">{{ dealerDetail.dealership  }}</td>
+                    <td scope="row">{{ dealerDetail.purchase }}</td>
+                    <td scope="row">{{ dealerDetail.review }}</td>
+                    <td scope="row">{{ dealerDetail.purchase_date }}</td>
+                    <td scope="row">{{ dealerDetail.car_make }}</td>
+                    <td scope="row">{{ dealerDetail.car_model }}</td>
+                    <td scope="row">{{ dealerDetail.car_year }}</td>
+                    <td scope="row">{{ dealerDetail.sentiment }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No dealerships are available.</p>
+    {% endif %}
+
     </body>
 
 </html>
