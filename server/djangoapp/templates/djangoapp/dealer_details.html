@@ -8,11 +8,61 @@
 </head>
 
     <body>
+        <!--Add a nav bar here -->
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                        <a class="navbar-brand" href="#">Capstone project - LTN</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">{{ user.first_name }} ({{ user.username }})</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:add_review' dealer.id%}">Add Review</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" action="{% url 'djangoapp:login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Username" name="psw" >
+                                <button class="btn btn-primary" type="submit">Login</button>
+                                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
 
-    <!--Add a nav bar here -->
-
-    <!-- Add reviews as cards -->
-
+        <!-- Add reviews as cards -->
+        <h3>Reviews for <b>{{ dealer.full_name }}</b></h3>
+        <!-- <p>Number of reviews: {{ dealerDetails|length }}</p>
+        <p>{{ dealerDetails }}</p> -->
+        {% if dealerDetails|length > 0 %}
+        <div class="card-columns" style="max-width: 72rem;">
+            {% for dealerDetail in dealerDetails %}
+            <div class="card">
+                <div class="card-header"><img class="card-img-left" src="{{MEDIA_URL}}/emoji/{{dealerDetail.sentiment}}.png" ></div>
+                <div class="card-body">
+                    <h5 clas="card-title">{{dealerDetail.car_model}}, {{ dealerDetail.car_make }}</h5>
+                    <h5 clas="card-title">{{ dealerDetail.car_year }}</h5>
+                    <p clas="card-text">{{dealerDetail.review}}</p>
+                    <!-- <p clas="card-text">{{ dealerDetail.id }}</p>
+                    <p clas="card-text">{{ dealerDetail.name }}</p>
+                    <p clas="card-text">{{ dealerDetail.dealership  }}</p>
+                    <p clas="card-text">{{ dealerDetail.purchase }}</p>
+                    <p clas="card-text">{{ dealerDetail.purchase_date }}</p>
+                    <p clas="card-text">{{ dealerDetail.sentiment }}</p> -->
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </body>
 
 </html>

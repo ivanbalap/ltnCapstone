@@ -87,41 +87,49 @@ def get_dealer_by_id(url, dealerId):
     results = []
     json_result = get_request(url,id=dealerId)
     if json_result:
-        for dealer in json_result:
-            dealer_obj = CarDealer(
-                address = dealer["address"],
-                city = dealer["city"],
-                full_name = dealer["full_name"],
-                id = dealer["id"],
-                lat = dealer["lat"],
-                long = dealer["long"],
-                short_name = dealer["short_name"],
-                st = dealer["st"],
-                state = dealer["state"],
-                zip = dealer["zip"]
-            )
-            results.append(dealer_obj)
-    return results
-
+        try:
+            for dealer in json_result:
+                dealer_obj = CarDealer(
+                    address = dealer["address"],
+                    city = dealer["city"],
+                    full_name = dealer["full_name"],
+                    id = dealer["id"],
+                    lat = dealer["lat"],
+                    long = dealer["long"],
+                    short_name = dealer["short_name"],
+                    st = dealer["st"],
+                    state = dealer["state"],
+                    zip = dealer["zip"]
+                )
+                results.append(dealer_obj)
+            return results
+        except Exception as e:
+            print(json_result)
+            return None
+        
 def get_dealers_by_state(url, state):
     results = []
     json_result = get_request(url,state=state)
     if json_result:
-        for dealer in json_result:
-            dealer_obj = CarDealer(
-                address = dealer["address"],
-                city = dealer["city"],
-                full_name = dealer["full_name"],
-                id = dealer["id"],
-                lat = dealer["lat"],
-                long = dealer["long"],
-                short_name = dealer["short_name"],
-                st = dealer["st"],
-                state = dealer["state"],
-                zip = dealer["zip"]
-            )
-            results.append(dealer_obj)
-    return results
+        try:
+            for dealer in json_result:
+                dealer_obj = CarDealer(
+                    address = dealer["address"],
+                    city = dealer["city"],
+                    full_name = dealer["full_name"],
+                    id = dealer["id"],
+                    lat = dealer["lat"],
+                    long = dealer["long"],
+                    short_name = dealer["short_name"],
+                    st = dealer["st"],
+                    state = dealer["state"],
+                    zip = dealer["zip"]
+                )
+                results.append(dealer_obj)
+            return results
+        except Exception as e:
+            print(json_result)
+            return None
 
 def get_dealer_reviews_from_cf(url, dealerId):
     results = []
@@ -145,7 +153,8 @@ def get_dealer_reviews_from_cf(url, dealerId):
                 results.append(dealer_review_obj)
             return results
         except Exception as e:
-            return json_result
+            print(json_result)
+            return None
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 def analyze_review_sentiments(text):

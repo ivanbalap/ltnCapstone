@@ -49,26 +49,26 @@
     <!--Add a dealer table here -->
     {% if dealerships %}
         <div class="container">
-            <table class="table table-hover">
+            <table class="table table-hover" id="table" data-filter-control="true">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">full_name</th>
-                    <th scope="col">city </th>
-                    <th scope="col">address</th>
-                    <th scope="col">zip</th>
-                    <th scope="col">state</th>
-                    <th scope="col">st</th>
-                     <th scope="col">lat</th>
-                    <th scope="col">long</th>
-                    <th scope="col">short_name</th>
+                    <th data-field="id" scope="col">ID</th>
+                    <th data-field="full_name" scope="col">Dealer Name</th>
+                    <th data-field="city" scope="col">City</th>
+                    <th data-field="address" scope="col">Address</th>
+                    <th data-field="zip" scope="col">Zip</th>
+                    <th data-field="state" scope="col" data-filter-control="select">State</th>
+                    <th data-field="st" scope="col" data-filter-control="select">st</th>
+                    <th data-field="lat" scope="col">lat</th>
+                    <th data-field="long" scope="col">long</th>
+                    <th data-field="short_name" scope="col">short_name</th>
                   </tr>
                 </thead>
                 <tbody>
                 {% for dealer in dealerships %}
                   <tr>
                     <td scope="row">{{ dealer.id }}</td>
-                    <td scope="row" class="text-primary">{{ dealer.full_name }}</td>
+                    <td scope="row" class="text-primary"><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{ dealer.full_name }}</a></td>
                     <td scope="row">{{ dealer.city  }}</td>
                     <td scope="row">{{ dealer.address }}</td>
                     <td scope="row">{{ dealer.zip }}</td>
@@ -82,50 +82,12 @@
                 </tbody>
             </table>
         </div>
-    {% else %}
-        <p>No dealerships are available.</p>
-    {% endif %}
-
-    <!--Add a dealer table here -->
-    {% if dealerDetails %}
-        <div class="container">
-            <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">name</th>
-                    <th scope="col">dealership </th>
-                    <th scope="col">purchase</th>
-                    <th scope="col">review</th>
-                    <th scope="col">purchase_date</th>
-                    <th scope="col">car_make</th>
-                    <th scope="col">car_model</th>
-                    <th scope="col">car_year</th>
-                    <th scope="col">sentiment</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {% for dealerDetail in dealerDetails %}
-                  <tr>
-                    <td scope="row">{{ dealerDetail.id }}</td>
-                    <td scope="row">{{ dealerDetail.name }}</td>
-                    <td scope="row">{{ dealerDetail.dealership  }}</td>
-                    <td scope="row">{{ dealerDetail.purchase }}</td>
-                    <td scope="row">{{ dealerDetail.review }}</td>
-                    <td scope="row">{{ dealerDetail.purchase_date }}</td>
-                    <td scope="row">{{ dealerDetail.car_make }}</td>
-                    <td scope="row">{{ dealerDetail.car_model }}</td>
-                    <td scope="row">{{ dealerDetail.car_year }}</td>
-                    <td scope="row">{{ dealerDetail.sentiment }}</td>
-                  </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <p>No dealer details are available.</p>
     {% endif %}
 
     </body>
-
+<script>
+    $(function() {
+        $('#table').bootstrapTable()
+    })
+</script>
 </html>
