@@ -3,14 +3,15 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-# from .restapis import related methods
+from .models import CarMake, CarModel, CarDealer, DealerReview
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
+from django.urls import reverse
 from datetime import datetime
 import logging
 import json
 from .restapis import get_dealers_from_cf, get_dealer_by_id, get_dealers_by_state
-from .restapis import get_dealer_reviews_from_cf
+from .restapis import get_dealer_reviews_from_cf, post_request
 from django.views import generic
 
 # Get an instance of a logger
@@ -106,6 +107,7 @@ def get_dealerships(request):
         dealers = get_dealers_by_state(url,state="Texas")
         for dealer in dealers:
             context["dealerships"].append(dealer)
+        
         return render(request, 'djangoapp/index.html', context=context)
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
@@ -120,6 +122,27 @@ def get_dealer_details(request, dealer_id):
         return render(request, 'djangoapp/index.html', context=context)
 
 # Create a `add_review` view to submit a review
-# def add_review(request, dealer_id):
+def add_review(request, dealer_id):
 # ...
+    user = request.user
 
+    if user.is_authenticated:
+        review = dict()
+        json_payload = dict()
+        review["id"] = 9997
+        review["time"] = datetime.utcnow().isoformat()
+        review["dealership"] = dealer_id
+        review["review"] = "This is a great car dealer"
+        review["name"] = "hcmltn"
+        review["purchase"] = "False"
+        review["another"] = "field"
+        review["purchase_date"] = "01/16/2018"
+        review["car_make"] = "Nissan"
+        review["car_model"] = "Sunny"
+        review["car_year"] = 2015
+        url="http://localhost:5000/api/review"
+        json_payload["review"]=review
+        post_request(url=url,json_payload=review, dealerId=dealer_id)
+        return get_dealer_details(request, dealer_id)
+    else:
+        return render(request, 'djangoapp/login.html', context={})
