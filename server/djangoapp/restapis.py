@@ -135,6 +135,8 @@ def get_dealer_reviews_from_cf(url, dealerId):
     results = []
     json_result = get_request(url,id=dealerId)
     # print(f"get dealer reviews: {json_result}")
+    if any([x in json_result for x in ['404','500']]):
+        return None
     if json_result:
         try:
             for review in json_result:
