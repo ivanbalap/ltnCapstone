@@ -38,30 +38,33 @@
                 </ul>
             </div>
         </nav>
-
+        {% if dealer %}
         <!-- Add reviews as cards -->
         <h3>Reviews for <b>{{ dealer.full_name }}</b></h3>
         <!-- <p>Number of reviews: {{ dealerDetails|length }}</p>
         <p>{{ dealerDetails }}</p> -->
-        {% if dealerDetails|length > 0 %}
-        <div class="card-columns" style="max-width: 72rem;">
-            {% for dealerDetail in dealerDetails %}
-            <div class="card">
-                <div class="card-header"><img class="card-img-left" src="{{MEDIA_URL}}/emoji/{{dealerDetail.sentiment}}.png" ></div>
-                <div class="card-body">
-                    <h5 clas="card-title">{{dealerDetail.car_model}}, {{ dealerDetail.car_make }}</h5>
-                    <h5 clas="card-title">{{ dealerDetail.car_year }}</h5>
-                    <p clas="card-text">{{dealerDetail.review}}</p>
-                    <!-- <p clas="card-text">{{ dealerDetail.id }}</p>
-                    <p clas="card-text">{{ dealerDetail.name }}</p>
-                    <p clas="card-text">{{ dealerDetail.dealership  }}</p>
-                    <p clas="card-text">{{ dealerDetail.purchase }}</p>
-                    <p clas="card-text">{{ dealerDetail.purchase_date }}</p>
-                    <p clas="card-text">{{ dealerDetail.sentiment }}</p> -->
+            {% if dealerDetails|length > 0 %}
+            <div class="card-columns" style="max-width: 72rem;">
+                {% for dealerDetail in dealerDetails %}
+                <div class="card">
+                    <div class="card-header"><img class="card-img-left" src="{{MEDIA_URL}}/emoji/{{dealerDetail.sentiment}}.png" ></div>
+                    <div class="card-body">
+                        <h5 clas="card-title">{{dealerDetail.car_model}} {% if dealerDetail.car_make %} , {{dealerDetail.car_make}} {% endif %}</h5>
+                        <h5 clas="card-title">{{ dealerDetail.car_year }}</h5>
+                        <p clas="card-text">{{dealerDetail.review}}</p>
+                        <!-- <p clas="card-text">{{ dealerDetail.id }}</p>
+                        <p clas="card-text">{{ dealerDetail.name }}</p>
+                        <p clas="card-text">{{ dealerDetail.dealership  }}</p>
+                        <p clas="card-text">{{ dealerDetail.purchase }}</p>
+                        <p clas="card-text">{{ dealerDetail.purchase_date }}</p>
+                        <p clas="card-text">{{ dealerDetail.sentiment }}</p> -->
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+            {% endif %}
+        {% else %}
+        <h3>Dealer not exist!!!</b></h3>
         {% endif %}
     </body>
 
