@@ -138,6 +138,10 @@ def get_dealer_reviews_from_cf(url, dealerId):
     if json_result:
         try:
             for review in json_result:
+                for i in ['id', 'name', 'dealership', 'review', 'purchase', 
+                          'purchase_date', 'car_make', 'car_model', 'car_year']:
+                    if i not in review:
+                        review[i]=""
                 dealer_review_obj = DealerReview(
                     dealership = review["dealership"],
                     purchase = review["purchase"],
